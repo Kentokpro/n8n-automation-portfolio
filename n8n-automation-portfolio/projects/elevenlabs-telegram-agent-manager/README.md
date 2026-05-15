@@ -96,7 +96,7 @@ REST API request в ElevenLabs
 Сообщение об успехе в Telegram
 
 
-#✅ Возможности
+# ✅ Возможности
 👤 Управление Telegram-пользователями
 
 Workflow извлекает и нормализует данные пользователя из входящих Telegram updates:
