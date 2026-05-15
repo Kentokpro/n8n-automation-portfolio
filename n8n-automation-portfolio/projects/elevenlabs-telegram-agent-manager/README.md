@@ -457,7 +457,6 @@ Main features:
 
 ## 🏗️ Architecture
 
-```text
 Telegram User
     ↓
 Telegram Bot
@@ -475,7 +474,7 @@ ElevenLabs REST API
     ↓
 ElevenLabs Voice Agents
 
-#⚙️ The main logic of workflow
+##⚙️ The main logic of workflow
 
 /start
   ↓
@@ -511,7 +510,7 @@ ElevenLabs , update log entry
 Success message in Telegram
 
 
-#✅ Features
+## ✅ Features
 👤 Telegram User Management
 
 Workflow extracts and normalizes user data from incoming Telegram updates:
@@ -527,7 +526,7 @@ callback_data
 This data is used for routing, access verification, logging, and user session management.
 
 
-# 🤖 List of agents
+## 🤖 List of agents
 
 The user can request a list of available ElevenLabs agents.
 
@@ -557,7 +556,7 @@ This prevents the user from accessing or changing an agent that does not belong 
 
 Workflow does not trust data from Telegram buttons as an authorization source.
 
-#🧠 Session Management
+## 🧠 Session Management
 
 The current user status is stored in the user_sessions table.
 
@@ -575,7 +574,7 @@ awaiting_knowledge_base
 This allows the bot to understand how to process the user's next text message.
 
 
-#✏️ Prompt update
+## ✏️ Prompt update
 
 The user can update the system prompt of the selected ElevenLabs agent directly from Telegram.
 
@@ -604,7 +603,7 @@ Example payload:
 }
 
 
-#👋 Welcome message update
+## 👋 Welcome message update
 
 The user can update the first message / welcome message of the selected ElevenLabs agent.
 
@@ -649,7 +648,7 @@ Sample payload:
 "name": "KB update - Agent Name - 2026-05-15T12:00:00.000Z"
 }
 
-#🗄️ Database structure
+## 🗄️ Database structure
 
 The project uses MySQL as an application database.
 
@@ -659,7 +658,7 @@ elevenlabs-bot-schema.sql
 Seed data file:
 elevenlabs-bot-seed.sql
 
-#🧱 Tables
+## 🧱 Tables
 telegram_users
 
 Stores Telegram users who are allowed to use the bot.
@@ -745,7 +744,7 @@ ownership of multiple
 user agents without agents
 isolation of access between users
 
-#🔐 The security model
+## 🔐 The security model
 
 The project uses a simple and reliable access model.:
 
@@ -758,7 +757,67 @@ Each update operation re-verifies the ownership of the agent.
 Callback data is not used as proof of access rights.
 API keys are stored in n8n credentials, not inside the workflow code.
 
+## 🔑 Credentials
 
+Workflow requires the following credentials in n8n:
+**Telegram API**
+
+Used for:
+receiving messages
+receiving callback queries
+sending messages from the bot
+sending inline keyboard menus
+
+**MySQL**
+
+Connection example:
+Host: mysql
+Port: 3306
+Database: elevenlabs_bot
+User: elevenbot
+Password: stored in environment / n8n credentials
+
+**ElevenLabs**
+
+Credential type: HTTP Header Auth
+
+Header: xi-api-key: <ELEVENLABS_API_KEY>
+
+Used for:
+updating agent configuration
+and creating Knowledge Base documents
+
+##  🐳 Deployment Notes
+
+The project is deployed via Docker Compose.
+
+Recommended infrastructure:
+n8n
+MySQL
+Docker internal network
+MySQL should be available only inside the Docker network.
+
+## 🚀 Installation and launch
+1. Import SQL schema
+mysql -u root -p < sql/elevenlabs-bot-schema.sql
+
+2. Import
+mysql -u root -p seed data < sql/elevenlabs-bot-seed.sql
+
+3. Import n8n workflow
+
+In n8n:
+
+Workflows
+→ Import from file
+→ Select elevenlabs-telegram-agent-manager.json
+
+4. Set up credentials
+
+In n8n, you need to configure:
+Telegram API
+MySQL
+ElevenLabs HTTP Header Auth
 
 
 
