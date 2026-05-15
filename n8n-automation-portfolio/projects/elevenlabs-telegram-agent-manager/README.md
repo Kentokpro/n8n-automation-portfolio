@@ -1,4 +1,4 @@
-*tekst*
+
 
 ## 🤖 ElevenLabs Telegram Bot Agent Manager
 
@@ -98,7 +98,7 @@ REST API request в ElevenLabs
 Сообщение об успехе в Telegram
 
 
-# ✅ Возможности
+## ✅ Возможности
 👤 Управление Telegram-пользователями
 
 Workflow извлекает и нормализует данные пользователя из входящих Telegram updates:
@@ -114,7 +114,7 @@ callback_data
 Эти данные используются для маршрутизации, проверки доступа, логирования и управления пользовательской сессией.
 
 
-# 🤖 Список агентов
+## 🤖 Список агентов
 
 Пользователь может запросить список доступных ему ElevenLabs agents.
 
@@ -127,7 +127,7 @@ User C	Не видит agents(нет агентов в базе)
 
 Пользователь не может видеть agents, принадлежащие другим Telegram-пользователям.
 
-#🔐 Безопасность на основе владения агентом
+## 🔐 Безопасность на основе владения агентом
 
 Безопасность реализована на уровне базы данных и workflow.
 
@@ -144,7 +144,7 @@ WHERE elevenlabs_agent_id = :selected_agent_id
 
 Workflow не доверяет данным из Telegram-кнопок как источнику авторизации.
 
-#🧠 Управление сессиями
+## 🧠 Управление сессиями
 
 Текущее состояние пользователя хранится в таблице user_sessions.
 
@@ -162,7 +162,7 @@ awaiting_knowledge_base
 Это позволяет боту понимать, как обработать следующее текстовое сообщение пользователя.
 
 
-#✏️ Обновление prompt
+## ✏️ Обновление prompt
 
 Пользователь может обновить system prompt выбранного ElevenLabs agent прямо из Telegram.
 
@@ -191,7 +191,7 @@ PATCH /v1/convai/agents/{agent_id}
 }
 
 
-#👋 Обновление welcome message
+## 👋 Обновление welcome message
 
 Пользователь может обновить first message / welcome message выбранного ElevenLabs agent.
 
@@ -214,7 +214,7 @@ Flow:
   "version_description": "Welcome message updated from Telegram bot"
 }
 
-#📚 Создание Knowledge Base content
+## 📚 Создание Knowledge Base content
 
 Пользователь может отправить текст из Telegram и создать новый ElevenLabs Knowledge Base document.
 
@@ -236,7 +236,7 @@ POST /v1/convai/knowledge-base/text
   "name": "KB update - Agent Name - 2026-05-15T12:00:00.000Z"
 }
 
-#🗄️ Структура базы данных
+## 🗄️ Структура базы данных
 
 Проект использует MySQL как application database.
 
@@ -246,7 +246,7 @@ elevenlabs-bot-schema.sql
 Файл seed-данных:
 elevenlabs-bot-seed.sql
 
-#🧱 Таблицы
+## 🧱 Таблицы
 telegram_users
 
 Хранит Telegram-пользователей, которым разрешено использовать бота.
@@ -315,7 +315,7 @@ telegram_payload_logs
 | `raw_payload_json` | Сырой Telegram update payload      |
 | `created_at`       | Время создания записи              |
 
-🧪 Seed-данные
+## 🧪 Seed-данные
 
 Проект включает установленные seed-данные для Telegram-пользователей и ElevenLabs agents.
 Пример распределения:
@@ -332,7 +332,7 @@ telegram_payload_logs
 пользователя без agents
 изоляцию доступа между пользователями
 
-#🔐 Модель безопасности
+## 🔐 Модель безопасности
 
 В проекте используется простая и надёжная модель доступа:
 
@@ -345,7 +345,7 @@ Telegram user ID → MySQL ownership check → разрешённая опера
 Callback data не используется как доказательство права доступа.
 API keys хранятся в n8n credentials, а не внутри workflow-кода.
 
-🔑 Credentials
+## 🔑 Credentials
 
 Workflow требует следующие credentials в n8n:
 **Telegram API**
@@ -375,7 +375,7 @@ Header: xi-api-key: <ELEVENLABS_API_KEY>
 обновления agent configuration
 создания Knowledge Base documents
 
-# 🐳 Deployment Notes
+##  🐳 Deployment Notes
 
 Проект развёрнут через Docker Compose.
 
@@ -385,7 +385,7 @@ MySQL
 Docker internal network
 MySQL должен быть доступен только внутри Docker network.
 
-#🚀 Установка и запуск
+## 🚀 Установка и запуск
 1. Импортировать SQL schema
 mysql -u root -p < sql/elevenlabs-bot-schema.sql
 
