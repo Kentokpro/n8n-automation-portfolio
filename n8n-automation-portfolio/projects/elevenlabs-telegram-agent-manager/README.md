@@ -62,7 +62,7 @@ ElevenLabs REST API
     ↓
 ElevenLabs Voice Agents
 
-#⚙️ Основная логика workflow
+*⚙️ Основная логика workflow*
 
 /start
   ↓
