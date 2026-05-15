@@ -1,0 +1,340 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "=1348125309",
+        "text": "=Произошла ошибка с флоу автоуведомлений оператору.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        16,
+        1024
+      ],
+      "id": "2e347f35-16e5-4a13-843b-9e363da9dc03",
+      "name": "Лог ошибок разработчику",
+      "webhookId": "4af14ce8-c9ef-4e6c-97fe-086cc4610049",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": "={{ 16 }}"
+            },
+            {
+              "triggerAtHour": "={{ 18 }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -592,
+        656
+      ],
+      "id": "f9c5e406-3829-47ad-9b49-a8fee059673f",
+      "name": "Напоминалка"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "25fd2554-49ae-48f1-89aa-b3ed5b2d8408",
+              "leftValue": "={{ $json.scenario_key }}",
+              "rightValue": "=SC2",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "8e16ee56-fc0a-4b2a-9df6-b496a5a1f2ba",
+              "leftValue": "={{ $json.is_active }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        784
+      ],
+      "id": "96ea803f-2bb3-46f4-8fa1-9036d2a97319",
+      "name": "Filter",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "xDApEM1YKOyC4NMM",
+          "mode": "list",
+          "cachedResultName": "pasta_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/xDApEM1YKOyC4NMM"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "is_active",
+              "condition": "isTrue"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        784
+      ],
+      "id": "1f87d9d6-8898-4366-92b2-10505ae56779",
+      "name": "(PPoker) Получить активные заявки"
+    },
+    {
+      "parameters": {
+        "chatId": "=8054770793",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        272,
+        528
+      ],
+      "id": "955eb7ee-d598-401f-a19c-73bc3bd1ff99",
+      "name": "Напоминание оператору Ru poker",
+      "webhookId": "747cb781-a283-4924-b3d5-4cc80c31f9fd",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "chatId": "=6793825220",
+        "text": "={{ $json.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        528,
+        752
+      ],
+      "id": "fbb58b90-cbaf-45e7-ade3-3ccb96285cd5",
+      "name": "Напоминание оператору PPoker",
+      "webhookId": "747cb781-a283-4924-b3d5-4cc80c31f9fd",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "is_active",
+              "condition": "isTrue"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        528
+      ],
+      "id": "a049d7b0-6c49-4462-ba3a-39b2e2bde9af",
+      "name": "Ru Poker получить активные заявки"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(r => String(r.ticket_id || '').trim() !== '');\n\nconst count = rows.length;\n\nif (count === 0) {\n  return [\n    {\n      json: {\n        active_count: 0,\n        send: false,\n        message: ''\n      }\n    }\n  ];\n}\n\nconst lines = rows.map((r, idx) => {\n  const ticket = r.ticket_id || 'no_ticket';\n  const operation = String(r.operation_type || '-').trim() || '-';\n  const currentBalance = String(r.current_balance || '-').trim() || '-';\n  const amount = String(r.amount || '-').trim() || '-';\n\n  return `${idx + 1}) ${ticket}\nОперация - ${operation}\nТекущий баланс - ${currentBalance}\nСумма - ${amount}\nИгрок ожидает ответ по заявке`;\n});\n\nconst message =\n  `Напоминание оператору по активным заявкам\\n` +\n  `Активных заявок: ${count}\\n\\n` +\n  lines.join('\\n\\n--------------------\\n\\n');\n\nreturn [\n  {\n    json: {\n      active_count: count,\n      send: true,\n      message\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16,
+        528
+      ],
+      "id": "02c24629-aec1-4738-9000-774de2d925a6",
+      "name": "Структурировать заявки",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(r => String(r.ticket_id || '').trim() !== '');\n\nconst count = rows.length;\n\nif (count === 0) {\n  return [\n    {\n      json: {\n        active_count: 0,\n        send: false,\n        message: ''\n      }\n    }\n  ];\n}\n\nconst lines = rows.map((r, idx) => {\n  const ticket = r.ticket_id || 'no_ticket';\n  const operation = String(r.details_operation || '-').trim() || '-';\n  const amount = String(r.details_amount || '-').trim() || '-';\n\n  return `${idx + 1}) ${ticket}\nОперация - ${operation}\nСумма - ${amount}\nИгрок ожидает ответ по заявке`;\n});\n\nconst message =\n  `Напоминание оператору по активным заявкам\\n` +\n  `Активных заявок: ${count}\\n\\n` +\n  lines.join('\\n\\n--------------------\\n\\n');\n\nreturn [\n  {\n    json: {\n      active_count: count,\n      send: true,\n      message\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        768
+      ],
+      "id": "95abc810-f5f0-471c-9d59-67ec30104e2b",
+      "name": "Структурировать заявки 2",
+      "retryOnFail": true,
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "connections": {
+    "Напоминалка": {
+      "main": [
+        [
+          {
+            "node": "(PPoker) Получить активные заявки",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ru Poker получить активные заявки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Структурировать заявки 2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Лог ошибок разработчику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "(PPoker) Получить активные заявки": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Напоминание оператору Ru poker": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Лог ошибок разработчику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Напоминание оператору PPoker": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Лог ошибок разработчику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ru Poker получить активные заявки": {
+      "main": [
+        [
+          {
+            "node": "Структурировать заявки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Структурировать заявки": {
+      "main": [
+        [
+          {
+            "node": "Напоминание оператору Ru poker",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Лог ошибок разработчику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Структурировать заявки 2": {
+      "main": [
+        [
+          {
+            "node": "Напоминание оператору PPoker",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Лог ошибок разработчику",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "0d8da6a678e16116387a942799d959a0c7a5cd4062a383b84dd93b7c50d8eb34"
+  }
+}

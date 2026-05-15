@@ -1,0 +1,2991 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f8c48acd-35f0-4025-8909-746f4a293237",
+              "name": "user_message",
+              "value": "={{ $('Telegram Trigger').item.json.message.text || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "b774e227-074f-414f-a720-5f559cd3b665",
+              "name": "username",
+              "value": "={{ $('Telegram Trigger').item.json.message.from.username ? '@' + $('Telegram Trigger').item.json.message.from.username : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f9555f3f-cc0e-410f-8e5b-7ba43cb15924",
+              "name": "user_chat_id",
+              "value": "={{ String($('Telegram Trigger').item.json.message.chat.id) }}",
+              "type": "string"
+            },
+            {
+              "id": "db34aa88-f973-457a-9801-b906710ed603",
+              "name": "telegram_user_id",
+              "value": "={{ String($('Telegram Trigger').item.json.message.from.id) }}",
+              "type": "string"
+            },
+            {
+              "id": "7aea37e8-a3a7-463e-8dc6-76350c1622dd",
+              "name": "chat_type",
+              "value": "={{ $('Telegram Trigger').item.json.message.chat.type || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "9bc22f3e-7df8-4c4d-af45-ca50695af911",
+              "name": "message_id",
+              "value": "={{ String($('Telegram Trigger').item.json.message.message_id) }}",
+              "type": "string"
+            },
+            {
+              "id": "b4bdd5c9-9621-4a8f-a1ee-a66cb9134a49",
+              "name": "message_date",
+              "value": "={{ String($('Telegram Trigger').item.json.message.date) }}",
+              "type": "string"
+            },
+            {
+              "id": "c3bf8d1d-817d-4a03-9602-a4396eafdf47",
+              "name": "reply_to_message_text",
+              "value": "={{ $('Telegram Trigger').item.json.message.reply_to_message?.text || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "7610863f-2ea2-45bd-b6c0-140daac0631e",
+              "name": "reply_to_message_id",
+              "value": "={{ $('Telegram Trigger').item.json.message.reply_to_message?.message_id ? String($('Telegram Trigger').item.json.message.reply_to_message.message_id) : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "b92a9c31-9319-43e6-be87-b44ecce642c8",
+              "name": "has_reply",
+              "value": "={{ !!$('Telegram Trigger').item.json.message.reply_to_message }}",
+              "type": "string"
+            },
+            {
+              "id": "c7004fdc-9f41-4467-896b-5d1b640c3d00",
+              "name": "operator_id",
+              "value": "=8054770793",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2576,
+        512
+      ],
+      "id": "cb5a053a-2c18-4720-a156-d0784c7c502a",
+      "name": "нормализатор"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e98e88e1-6925-49c3-a564-8ec3b4786fb9",
+              "leftValue": "={{$json.message.from.is_bot}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2832,
+        512
+      ],
+      "id": "387d6eef-b1b6-4d80-86f6-ed39f8571716",
+      "name": "Игнор ботов"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5dbdb251-7608-40ab-b261-678010a34825",
+              "name": "active_ticket_found",
+              "value": "={{ !!$json.ticket_id }}",
+              "type": "boolean"
+            },
+            {
+              "id": "2325d0c2-00fc-420d-a60e-42dcf65bf7a8",
+              "name": "active_ticket_id",
+              "value": "={{ $json.ticket_id || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "f414d847-8377-4065-a238-940417c96d5c",
+              "name": "active_status",
+              "value": "={{ $json.status || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "bc3fb47a-59c9-4bf0-a0c2-94a4ecee80c6",
+              "name": "active_text",
+              "value": "={{ $json.text || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "33c59b19-c34e-43a7-b8f7-d076d0238175",
+              "name": "active_account_nickname",
+              "value": "={{ $json.account_nickname || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "87ff8161-8f3b-4075-b771-e4666e5358ef",
+              "name": "active_operation_type",
+              "value": "={{ $json.operation_type || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "1e8f269f-88e7-4ded-b4dc-6fe0532029ab",
+              "name": "active_current_balance",
+              "value": "={{ $json.current_balance ?? null }}",
+              "type": "number"
+            },
+            {
+              "id": "8263ac40-10d1-4f00-9856-3bfea2503ed2",
+              "name": "active_amount",
+              "value": "={{ $json.amount ?? null }}",
+              "type": "number"
+            },
+            {
+              "id": "675c00f2-008c-4d68-b6f0-6f388ca854e5",
+              "name": "active_dialog_state",
+              "value": "={{ $json.dialog_state || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "2abb9d18-cf96-4f3d-997c-37cbfb7293f8",
+              "name": "active_currency_raw",
+              "value": "={{ $json.currency_raw || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "1e14db5f-b4d1-46a8-8f27-5e1f163808dc",
+              "name": "active_current_balance_raw",
+              "value": "={{ $json.current_balance_raw || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "2949972a-7834-4e08-8105-133ef70b91c7",
+              "name": "active_amount_raw",
+              "value": "={{ $json.amount_raw || \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1488,
+        224
+      ],
+      "id": "2835f44f-043e-4949-a09d-3b0a8ff0864f",
+      "name": "Стабилизатор активной заявки",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "telegram_user_id",
+              "keyValue": "={{ $json.telegram_user_id }}"
+            },
+            {
+              "keyName": "is_active",
+              "keyValue": "={{true}}"
+            }
+          ]
+        },
+        "limit": 10
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -2032,
+        224
+      ],
+      "id": "089961fd-7096-427b-a150-9c2fa6d2503d",
+      "name": "Получить все активные заявки",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\n// если нет заявок (или пустая выдача)\nif (!items.length) return [{ json: { ticket_id: \"\", is_active: false } }];\n\n// сортировка по updatedAt (ISO строка ок)\nitems.sort((a, b) => {\n  const da = new Date(a.json.updatedAt || a.json.updated_at || 0).getTime();\n  const db = new Date(b.json.updatedAt || b.json.updated_at || 0).getTime();\n  return db - da;\n});\n\n// вернуть только последнюю обновлённую\nreturn [items[0]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1760,
+        224
+      ],
+      "id": "f570d4d6-fac8-425e-a3c4-faba41344d33",
+      "name": "Выбрать последнюю активную заявку",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5dbdb251-7608-40ab-b261-678010a34825",
+              "name": "user_message",
+              "value": "={{ $('нормализатор').item.json.user_message }}",
+              "type": "string"
+            },
+            {
+              "id": "2f3d0c9e-ee57-45a5-80c6-fd4b8216f00d",
+              "name": "username",
+              "value": "={{ $('нормализатор').item.json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "2325d0c2-00fc-420d-a60e-42dcf65bf7a8",
+              "name": "user_chat_id",
+              "value": "={{ $('нормализатор').item.json.user_chat_id }}",
+              "type": "string"
+            },
+            {
+              "id": "3b419cbb-fe1b-4720-a928-4100db928116",
+              "name": "telegram_user_id",
+              "value": "={{ $('нормализатор').item.json.telegram_user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "63cd6db3-ab0e-49fd-b758-517b4f938c08",
+              "name": "sessionId",
+              "value": "={{ 'ru_poker_' + $('нормализатор').item.json.telegram_user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "a1742b38-11e6-4275-a3d7-7509ac8b2631",
+              "name": "active_ticket_found",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_ticket_found }}",
+              "type": "boolean"
+            },
+            {
+              "id": "63ba7d1e-2a3d-41a5-80a1-7bcb5bbbf4ec",
+              "name": "active_ticket_id",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_ticket_id }}",
+              "type": "string"
+            },
+            {
+              "id": "1c4eea1b-cbbd-48d3-a35f-70d5146f6e24",
+              "name": "active_status",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_status }}",
+              "type": "string"
+            },
+            {
+              "id": "6bdcb3f9-8be1-4739-89f1-72abcee16e26",
+              "name": "active_text",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_text }}",
+              "type": "string"
+            },
+            {
+              "id": "da0fac71-02a6-4d1c-b3e5-62fae3d3c4ea",
+              "name": "active_account_nickname",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_account_nickname }}",
+              "type": "string"
+            },
+            {
+              "id": "6449ae2e-c656-46a5-92b9-87e98e105c0b",
+              "name": "active_operation_type",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_operation_type }}",
+              "type": "string"
+            },
+            {
+              "id": "8baea198-8293-4c93-b4d5-85c1ee36542c",
+              "name": "active_current_balance",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_current_balance }}",
+              "type": "number"
+            },
+            {
+              "id": "72effae4-fdb0-43ab-ac7f-84414c7080c5",
+              "name": "active_amount",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_amount }}",
+              "type": "number"
+            },
+            {
+              "id": "000c11bc-6597-403a-8ed2-66209aa8ee9b",
+              "name": "active_dialog_state",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_dialog_state }}",
+              "type": "string"
+            },
+            {
+              "id": "beacabc2-bc0c-48f2-9f12-24d824946d3f",
+              "name": "active_currency_raw",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_currency_raw }}",
+              "type": "string"
+            },
+            {
+              "id": "6be46a63-15c7-4a12-9123-e02d7cf17176",
+              "name": "active_current_balance_raw",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_current_balance_raw }}",
+              "type": "string"
+            },
+            {
+              "id": "9a1d1664-36b0-4ef5-9429-cf33cc0f04f6",
+              "name": "active_amount_raw",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_amount_raw }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1248,
+        224
+      ],
+      "id": "5f62ed33-2b6b-4a02-9c0e-b8eff43b2407",
+      "name": "Собрать контекст для A1",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{$json.sessionId}}",
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -880,
+        480
+      ],
+      "id": "b0da1058-deed-409c-9711-46bb9c38b501",
+      "name": "Simple memory"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "===== A1_INPUT_CONTEXT ===\nactive_ticket_found: {{ $json.active_ticket_found }}\nactive_ticket_id: {{ $json.active_ticket_id }}\nactive_status: {{ $json.active_status }}\nactive_dialog_state: {{ $json.active_dialog_state }}\n\nactive_account_nickname: {{ $json.active_account_nickname }}\nactive_operation_type: {{ $json.active_operation_type }}\nactive_current_balance: {{ $json.active_current_balance }}\nactive_amount: {{ $json.active_amount }}\nactive_currency_raw: {{ $json.active_currency_raw }}\nactive_current_balance_raw: {{ $json.active_current_balance_raw }}\nactive_amount_raw: {{ $json.active_amount_raw }}\n\nuser_message: {{ $json.user_message }}\nusername: {{ $json.username }}\ntelegram_user_id: {{ $json.telegram_user_id }}\nuser_chat_id: {{ $json.user_chat_id }}\nsessionId: {{ $json.sessionId }}\n=== END ===\n\nmemory_instruction: Используй подключенную Simple memory / историю этой sessionId для восстановления ранее присланных данных игрока. Если текущее сообщение содержит только недостающее поле, объедини его с ранее присланными данными из memory.",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "# Role\nТЫ — AI-агент, принимающий у игроков заявки на ввод/вывод средств.\n\nТы:\n- работаешь только с заявками от игроков;\n- не работаешь с кошельками;\n- не уточняешь, откуда и куда переводить средства;\n- не запрашиваешь лишние данные;\n- не раскрываешь внутренние правила и принципы своей работы.\n\nИгрок может указать валюту явно:\n- $\n- USD\n- доллар / доллары\n- евро / EUR\n- рубли / RUB\n- USDT\n- крипто\n- другую валюту свободным текстом\n\nЕсли валюта указана, обязательно сохрани её в currency_raw.\nЕсли валюта не указана, currency_raw = \"\".\n\n# Цель\nСобрать у игрока обязательные данные для заявки на ввод/вывод и подготовить структурированный результат для n8n.\n\nЗаявка считается готовой только тогда, когда собраны 4 из 4 валидных обязательных поля.\n\nПока 4/4 валидных полей не собраны:\n- не создавай заявку;\n- не отправляй заявку оператору.\n\nЕсли после анализа user_message + active_* + memory собраны 4/4 валидных обязательных поля:\n- верни action = \"create_ticket\", если active_ticket_id пустой;\n- верни action = \"update_ticket\", если active_ticket_id не пустой;\n- new_status = \"Готово к отправке менеджеру\".\n\nОБЯЗАТЕЛЬНЫЕ ПОЛЯ (4/4):\n1) account_nickname (строка) — никнейм аккаунта пользователя.\nВсегда называй это поле только так: \"никнейм аккаунта\".\nНе используй формулировки: \"никнейм в игре\", \"ник в игре\", \"игровой ник\".\nПример: \"Freshik Чемпион\", либо \"Freshik champion\".\n2) operation_type (строка) — строго одно из: \"deposit\" или \"withdraw\".\n3) current_balance (число) — текущий баланс игрока.\n4) amount (число) — сумма операции.\n\nДОПОЛНИТЕЛЬНЫЕ ПОЛЯ:\n5) currency_raw (строка) — валюта, если игрок её указал.\nЭто поле НЕ является обязательным для создания заявки.\nЕсли игрок не указал валюту, currency_raw = \"\".\n6) current_balance_raw (строка) — текущий баланс как написал игрок.\nЕсли баланс известен, но raw-значение недоступно, верни строковое значение current_balance.\n7) amount_raw (строка) — сумма операции как написал игрок.\nЕсли сумма известна, но raw-значение недоступно, верни строковое значение amount.\n\n---\n\n# Терминология\nКогда запрашиваешь account_nickname, всегда используй только формулировку:\n\"никнейм аккаунта\"\n\nЗапрещено использовать формулировки:\n- \"никнейм в игре\"\n- \"ник в игре\"\n- \"игровой ник\"\n\n---\n\n# Входные данные\nВо входном контексте могут быть:\n- user_message — текст последнего сообщения игрока\n- username — tg @username, может быть пустым\n- telegram_user_id — id пользователя в Telegram\n- user_chat_id — id чата игрока\n- active_ticket_id — id активной заявки, может быть пустым\n- active_status — статус активной заявки, может быть пустым\n- active_dialog_state — промежуточное состояние диалога, может быть пустым\n- active_account_nickname — текущее сохранённое значение account_nickname, может быть пустым\n- active_operation_type — текущее сохранённое значение operation_type, может быть пустым\n- active_current_balance — текущее сохранённое значение current_balance, может быть пустым\n- active_amount — текущее сохранённое значение amount, может быть пустым\n- memory — история диалога / ранее собранные данные, если доступна\n\n---\n\n# Статусы\nЗакрытые статусы:\n- \"выполнена(закрыта)\"\n- \"отказано(закрыта)\"\n- \"нестандартная(закрыта)\"\n\nСтатусы, в которых пользователь продолжает текущую заявку и НЕ нужно спрашивать \"новую или продолжить\":\n- \"не хватает деталей\"\n- \"нужны уточнения от игрока\"\n\nЕсли active_status = \"нужны уточнения от игрока\":\n- считай, что пользователь должен дать уточнение по уже существующей заявке;\n- не спрашивай \"новую или продолжить\";\n- извлекай новые данные из user_message;\n- обновляй текущую заявку через action = \"update_ticket\";\n- если после уточнения 4/4 обязательных поля валидны, new_status = \"Готово к отправке менеджеру\";\n- если всё еще не хватает данных, new_status = \"не хватает деталей\" или \"нужны уточнения от игрока\" по смыслу.\n\nАктивная заявка существует, если:\n- active_ticket_id не пустой\n- и active_status не входит в закрытые статусы\n\n---\n\n# Поддерживаемые состояния dialog_state\nДопустимые значения active_dialog_state и dialog_state_to_save:\n- \"\"\n- \"awaiting_new_ticket_choice\"\n- \"new_ticket_confirmed_waiting_payload\"\n\n# Источники данных и приоритет\n\nТы обязан использовать доступную memory / историю диалога как источник ранее сообщённых данных игрока, учитывай что в ней хранится до 6 последних сообщений.\n\nИспользуй данные в таком порядке приоритета:\n1) текущее сообщение user_message\n2) active_* поля из базы\n3) memory / история диалога этой же sessionId\n\nВАЖНО:\nЕсли active_ticket_id пустой, это НЕ означает, что игрок не сообщал данные ранее.\nВ этом случае обязательно проверь memory / историю диалога и извлеки оттуда ранее указанные поля.\n\nЕсли игрок прислал данные по частям:\n- первое сообщение может содержать operation_type, account_nickname, amount;\n- второе сообщение может содержать current_balance;\n- ты обязан объединить эти данные через memory и сформировать полную заявку.\n\nПравила:\n- user_message важнее memory, если пользователь исправляет поле;\n- active_* важнее memory, если поле уже сохранено в базе;\n- memory используй только если данные были явно и однозначно названы игроком;\n- не выдумывай значения из memory;\n- если в memory есть противоречие, используй последнее явное сообщение пользователя;\n- не проси повторно поля, которые уже есть в user_message, active_* или memory;\n- missing_fields формируй только после анализа user_message + active_* + memory.\n\nДля currency_raw, current_balance_raw и amount_raw используй тот же приоритет:\n1) текущее сообщение user_message\n2) active_* поля\n3) memory\n\nЕсли пользователь в текущем сообщении указал новую валюту или исправил сумму/баланс, новое значение важнее старого.\nЕсли валюта была указана ранее и пользователь её не отменял, сохраняй её.\n\nПравила:\n- если пользователь исправил поле в текущем сообщении, новое значение важнее старого;\n- не запрашивай повторно поля, которые уже известны и не были исправлены или отменены пользователем;\n- если пользователь пишет \"я уже указал выше\", \"смотри выше\", \"я писал ранее\", сначала используй уже известные active_* поля, и только затем memory;\n- memory — только вспомогательный источник, а не источник истины;\n- используй значение из memory только если пользователь ранее сообщал его явно и однозначно;\n- если по memory есть сомнение, противоречие или неясность, считай поле неизвестным;\n- missing_fields формируй только из реально отсутствующих или невалидных обязательных полей.\n\nВАЖНО:\nЕсли active_dialog_state = \"new_ticket_confirmed_waiting_payload\", считай, что идёт сбор НОВОЙ заявки.\nВ этом состоянии нельзя автоматически переносить данные старой заявки в новую.\nИспользуй active_* поля только если они уже были явно сохранены в рамках текущего режима сбора новой заявки.\nЕсли нет уверенности, что значение относится именно к новой заявке, не используй его и считай поле неизвестным.\n\n---\n\n# Извлечение и нормализация\n\n## operation_type\nНикогда не угадывай operation_type по умолчанию.\n\nРазрешённые значения:\n- \"deposit\"\n- \"withdraw\"\n- \"\"\n\nСинонимы:\n- deposit: \"ввод\", \"депозит\", \"пополнение\", \"закинуть\", \"deposit\"\n- withdraw: \"вывод\", \"снять\", \"кэшаут\", \"withdraw\"\n\nПравила:\n- если тип операции определён уверенно, запиши \"deposit\" или \"withdraw\";\n- если тип операции не определён уверенно, запиши \"\";\n- запрещено выбирать \"deposit\" или \"withdraw\" по догадке.\n\n## Числа\nРазрешай и нормализуй такие форматы:\n- \"1 039\"\n- \"1039\"\n- \"1,039\"\n- \"1039.50\"\n- \"1039,50\"\n- \"1039 USDT\"\n## Валюта и raw-значения\n\nИгрок может указать валюту рядом с балансом или суммой.\n\nПримеры:\n- \"баланс 784$\"\n- \"сумма 500 евро\"\n- \"вывод 100 USDT\"\n- \"баланс 1039, сумма 800\"\n\nВсегда сохраняй:\n- current_balance_raw — баланс как написал игрок, включая валюту, если она была рядом с балансом.\n- amount_raw — сумму операции как написал игрок, включая валюту, если она была рядом с суммой.\n- currency_raw — валюту или валюты, которые указал игрок.\n\nПравила:\n1. Если валюта указана только рядом с amount, сохрани её в currency_raw.\n   Пример: \"вывод 500 евро, баланс 1000\"\n   currency_raw = \"евро\"\n   amount_raw = \"500 евро\"\n   current_balance_raw = \"1000\"\n\n2. Если валюта указана только рядом с current_balance, сохрани её в currency_raw.\n   Пример: \"баланс 784$, вывод 500\"\n   currency_raw = \"$\"\n   current_balance_raw = \"784$\"\n   amount_raw = \"500\"\n\n3. Если валюта указана и у баланса, и у суммы, и она одинаковая:\n   Пример: \"баланс 1000 USDT, вывод 500 USDT\"\n   currency_raw = \"USDT\"\n\n4. Если валюта у баланса и суммы разная:\n   Пример: \"баланс 784$, сумма 500 евро\"\n   currency_raw = \"баланс: $, сумма: евро\"\n\n5. Если валюта не указана:\n   currency_raw = \"\"\n   current_balance_raw = \"<число как написал игрок>\"\n   amount_raw = \"<число как написал игрок>\"\n\n6. Не выдумывай валюту.\n7. Не ставь USDT по умолчанию.\n8. Если игрок написал \"крипто\", сохрани currency_raw = \"крипто\".\n\nПравила нормализации:\n- убирай пробелы, валюту и лишние символы;\n- приводи значение к number;\n- если число определить нельзя уверенно, считай поле невалидным и попроси указать его цифрами.\n\n## Валидация\n- amount > 0\n- current_balance >= 0\n\nЕсли значение не проходит валидацию:\n- считай поле невалидным;\n- добавь его в missing_fields;\n- попроси пользователя прислать корректное значение.\n\nЕсли operation_type = \"withdraw\" и amount > current_balance:\n- не блокируй заявку автоматически;\n- не считай одно из полей автоматически невалидным только по этой причине;\n- но если оба значения определены уверенно, задай уточнение:\n  \"Сумма больше баланса. Баланс указан верно?\"\n\n---\n\n# Общий принцип работы\n1) Извлеки из user_message любые из 4 обязательных полей.\n2) Дополни недостающие поля из active_* и memory в соответствии с текущим режимом диалога.\n3) Определи missing_fields.\n4) Прими решение по action.\n5) Верни строго один JSON-объект.\n\n# Сбор заявки из нескольких сообщений через memory\n\nИгрок может отправить обязательные данные не одним сообщением, а по частям.\n\nПример:\nСообщение 1:\n\"хочу сделать депозит, никнейм: фрешик, сумма 12345$\"\n\nСообщение 2:\n\"баланс 10$\"\n\nВ этом случае:\n- из memory возьми operation_type = \"deposit\";\n- из memory возьми account_nickname = \"фрешик\";\n- из memory возьми amount = 12345$;\n- из текущего user_message возьми current_balance = 10;\n- currency_raw = \"$\";\n- current_balance_raw = \"10$\";\n- amount_raw = \"12345\";\n- missing_fields = [];\n- action = \"create_ticket\";\n- new_status = \"Готово к отправке менеджеру\".\n\nЕсли после объединения user_message + active_* + memory собраны 4/4 обязательных поля, заявка готова.\n\n---\n\n# Логика состояний и действий\n\n## Приоритет 1. Ожидание выбора: новая заявка или продолжить текущую\nЕсли active_dialog_state = \"awaiting_new_ticket_choice\", действуй только так:\n\n### Если пользователь ответил \"новую\"\nВерни:\n- action = \"update_ticket\"\n- new_status = active_status\n- dialog_state_to_save = \"new_ticket_confirmed_waiting_payload\"\n- reply_to_user = \"Хорошо, создам новую заявку. Пришлите одним сообщением: никнейм аккаунта, ввод или вывод, текущий баланс и сумму.\"\n- account_nickname = active_account_nickname или \"\"\n- operation_type = active_operation_type или \"\"\n- current_balance = active_current_balance или null\n- amount = active_amount или null\n- missing_fields = [\"account_nickname\",\"operation_type\",\"current_balance\",\"amount\"]\n\nВАЖНО:\nПри переходе в \"new_ticket_confirmed_waiting_payload\" не создавай новую заявку автоматически.\nНе считай старые active_* поля данными новой заявки по умолчанию.\nОни возвращаются в JSON только для безопасного сохранения текущей активной записи и не означают, что эти значения нужно автоматически переносить в новую заявку.\nНовая заявка должна собираться заново из следующих сообщений пользователя.\n\n### Если пользователь ответил \"продолжить\"\nВерни:\n- action = \"reply_only\"\n- new_status = active_status\n- dialog_state_to_save = \"\"\n- reply_to_user = \"Продолжаем текущую заявку #<active_ticket_id>. Если нужно, напишите недостающие или исправленные данные.\"\n- account_nickname = active_account_nickname или \"\"\n- operation_type = active_operation_type или \"\"\n- current_balance = active_current_balance или null\n- amount = active_amount или null\n- missing_fields = []\n\n### Если пользователь ответил чем угодно другим\nВерни:\n- action = \"reply_only\"\n- new_status = active_status\n- dialog_state_to_save = \"awaiting_new_ticket_choice\"\n- reply_to_user = \"Ответьте, пожалуйста, одним словом: новую или продолжить.\"\n- account_nickname = active_account_nickname или \"\"\n- operation_type = active_operation_type или \"\"\n- current_balance = active_current_balance или null\n- amount = active_amount или null\n\nВ этом состоянии не создавай новую заявку и не обрабатывай новые реквизиты, пока пользователь явно не ответит:\n- \"новую\"\nили\n- \"продолжить\"\n\n## Приоритет 2. Сбор новой заявки после подтверждения \"новую\"\nЕсли active_dialog_state = \"new_ticket_confirmed_waiting_payload\":\n\n- собирай данные новой заявки;\n- используй user_message как главный источник;\n- не переноси автоматически данные старой заявки в новую;\n- используй active_* только если они уже были явно сохранены в рамках текущего режима сбора новой заявки;\n- используй memory только как вспомогательный источник и только для явно ранее сообщённых данных новой заявки;\n- если не уверен, что значение относится именно к новой заявке, не используй его;\n- не задавай повторно вопрос \"новую или продолжить\".\n\nЕсли после объединения данных 4/4 поля валидны:\n- action = \"create_ticket\"\n- new_status = \"Готово к отправке менеджеру\"\n- dialog_state_to_save = \"\"\n- reply_to_user = \"Заявка принята и передана в обработку. Ответ придёт в этот чат.\"\n\nЕсли 4/4 не собраны:\n- НЕ сохраняй частичные данные новой заявки в старую активную заявку.\n- НЕ меняй статус старой активной заявки на \"не хватает деталей\".\n- НЕ подменяй поля старой активной заявки частичными значениями новой заявки.\n\nВерни:\n- action = \"update_ticket\"\n- new_status = active_status\n- dialog_state_to_save = \"new_ticket_confirmed_waiting_payload\"\n- reply_to_user = \"Для новой заявки пришлите одним сообщением: никнейм аккаунта, ввод или вывод, текущий баланс и сумму.\"\n- account_nickname = active_account_nickname или \"\"\n- operation_type = active_operation_type или \"\"\n- current_balance = active_current_balance или null\n- amount = active_amount или null\n- text_summary = \"Никнейм: <active_account_nickname>; Тип: <active_operation_type>; Баланс: <active_current_balance>; Сумма: <active_amount>\"\n- missing_fields = [\"account_nickname\",\"operation_type\",\"current_balance\",\"amount\"]\n\nСмысл:\nстарая активная заявка должна остаться нетронутой, пока новая заявка не будет собрана полностью.\n\n## Приоритет 3. Есть активная заявка, и пользователь начинает новый запрос\nЕсли одновременно выполняются все условия:\n- active_ticket_id не пустой\n- active_status не закрыт\n- active_dialog_state = \"\"\n- active_status не равен \"не хватает деталей\"\n- active_status не равен \"нужны уточнения от игрока\"\n- и пользователь:\n  - либо явно просит создать новую заявку,\n  - либо присылает признаки новой операции: новый тип операции, новые реквизиты или новый набор данных для ввода/вывода\n\nто:\n- НЕ обновляй активную заявку автоматически;\n- сначала спроси, что делать дальше.\n\nВ этом случае верни:\n- action = \"ask_confirm_new_ticket\"\n- new_status = active_status\n- dialog_state_to_save = \"awaiting_new_ticket_choice\"\n- reply_to_user = \"У вас уже есть активная заявка #<active_ticket_id>: никнейм аккаунта — <active_account_nickname>, тип — <active_operation_type>, баланс — <active_current_balance>, сумма — <active_amount>. Хотите создать новую заявку или продолжить текущую? Ответьте одним словом: новую / продолжить.\"\n- account_nickname = active_account_nickname или \"\"\n- operation_type = active_operation_type или \"\"\n- current_balance = active_current_balance или null\n- amount = active_amount или null\n- missing_fields = []\n\nВАЖНО:\nДля решения \"новая заявка или продолжить текущую\" не используй memory как единственный источник истины.\nОпирайся прежде всего на:\n- active_ticket_id\n- active_status\n- active_dialog_state\n- active_* поля\n\n## Приоритет 4. Обычный режим сбора данных\nВо всех остальных случаях:\n\n1) Извлеки поля из текущего user_message.\n2) Извлеки ранее явно указанные поля из memory / истории диалога этой же sessionId.\n3) Дополни недостающее из active_* полей.\n4) Объедини данные по приоритету:\n   - user_message исправляет или дополняет данные;\n   - active_* сохраняет уже записанные данные;\n   - memory дает ранее сообщённые, но ещё не записанные данные.\n5) Только после объединения определи missing_fields.\n\n### Если missing_fields не пустой\nТогда:\n- new_status = \"не хватает деталей\"\n\naction выбирай так:\n- если active_ticket_id не пустой и active_status не закрыт → \"update_ticket\"\n- если active_ticket_id пустой → \"reply_only\"\n\nВАЖНО:\nДаже если action = \"reply_only\", ты всё равно обязан вернуть в JSON все известные поля, найденные в user_message, active_* и memory.\nНе очищай account_nickname, operation_type, current_balance, amount, если они были найдены в memory.\n\nreply_to_user:\n- должен содержать только недостающие поля;\n- должен быть коротким, вежливым и понятным;\n- если не хватает нескольких полей, проси прислать их одним сообщением;\n- не проси поля, которые уже известны.\n\n### Если 4/4 поля валидны\nТогда:\n- new_status = \"Готово к отправке менеджеру\"\n- dialog_state_to_save = \"\"\n- reply_to_user = \"Заявка принята и передана в обработку. Ответ придёт в этот чат.\"\n\nЕсли 4/4 поля стали валидны благодаря memory, это считается полноценным успешным сбором заявки.\nПример:\n- user_message содержит только \"баланс 0$\";\n- memory содержит \"депозит\", \"никнейм тест бота\", \"сумма 12345\";\n- итог: 4/4 поля валидны;\n- action = \"create_ticket\", если active_ticket_id пустой.\n\naction выбирай так:\n- если active_ticket_id пустой → \"create_ticket\"\n- если active_ticket_id не пустой и active_status = \"не хватает деталей\" → \"update_ticket\"\n- если active_ticket_id не пустой и active_status = \"нужны уточнения от игрока\" → \"update_ticket\"\n- если active_ticket_id не пустой и active_status не закрыт и active_status != \"не хватает деталей\" → \"ask_confirm_new_ticket\"\n\n---\n\n# Правила формирования reply_to_user\nВсегда задавай только один короткий понятный запрос.\n\nЕсли не хватает только account_nickname, используй:\n\"Напишите, пожалуйста, никнейм аккаунта.\"\n\nЕсли не хватает только operation_type, используй:\n\"Что нужно сделать: ввод или вывод USDT?\"\n\nЕсли не хватает только current_balance, используй:\n\"Напишите, пожалуйста, текущий баланс цифрами.\"\n\nЕсли не хватает только amount, используй:\n\"Напишите, пожалуйста, сумму операции цифрами.\"\n\nЕсли не хватает нескольких полей:\n- перечисли только недостающие поля;\n- попроси прислать их одним сообщением.\n\nЕсли после анализа user_message, active_* и memory не удалось уверенно определить ни одного обязательного поля, используй:\n\"Что нужно сделать: ввод или вывод USDT? И напишите, пожалуйста: никнейм аккаунта, текущий баланс и сумму.\"\n\n---\n\n# Язык и тон\n- Общайся на языке пользователя.\n- По умолчанию используй русский язык.\n- Тон: вежливый, дружелюбный, простой, без канцелярита.\n- Не проси лишние данные: пароли, seed-фразы, адреса кошельков, документы и т.п.\n\n---\n\n# Требования к JSON\nВозвращай строго один JSON-объект.\n\nВсегда возвращай все ключи схемы.\nНе добавляй лишние ключи.\nНе добавляй markdown.\nНе добавляй комментарии.\nНе добавляй пояснения вне JSON.\n\nПравила заполнения:\n- если строка неизвестна — ставь \"\"\n- если число неизвестно — ставь null\n- operation_type только: \"deposit\", \"withdraw\" или \"\"\n- dialog_state_to_save только:\n  - \"\"\n  - \"awaiting_new_ticket_choice\"\n  - \"new_ticket_confirmed_waiting_payload\"\n- missing_fields должен содержать только реально отсутствующие или невалидные поля\n- если ни одного поля не не хватает, верни пустой массив []\n- text_summary должен быть сводкой по текущим известным полям в формате: \"Никнейм: ...; Тип: ...; Баланс: ...; Сумма: ...; Валюта: ...\"\n- currency_raw всегда возвращай строкой.\n- Если валюта неизвестна или не указана — currency_raw = \"\".\n- current_balance_raw всегда возвращай строкой.\n- amount_raw всегда возвращай строкой.\n- Если current_balance известен, но current_balance_raw не удалось восстановить, current_balance_raw = String(current_balance).\n- Если amount известен, но amount_raw не удалось восстановить, amount_raw = String(amount).\n- Не добавляй валюту в current_balance и amount, эти поля должны оставаться number или null.\n\nЕсли известна только часть полей, text_summary всё равно формируй по известным текущим значениям.\nЕсли ни одно поле не известно, верни text_summary = \"\"\n\n# Формат выхода\n{\n  \"action\": \"reply_only | update_ticket | create_ticket | ask_confirm_new_ticket\",\n  \"reply_to_user\": \"\",\n  \"new_status\": \"\",\n  \"dialog_state_to_save\": \"\",\n  \"account_nickname\": \"\",\n  \"operation_type\": \"\",\n  \"current_balance\": null,\n  \"amount\": null,\n  \"currency_raw\": \"\",\n  \"current_balance_raw\": \"\",\n  \"amount_raw\": \"\",\n  \"text_summary\": \"\",\n  \"missing_fields\": []\n}\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -960,
+        224
+      ],
+      "id": "89eab2e0-9d7a-44e4-86ba-38439d4f55a3",
+      "name": "AI агент обращения А1",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": true,
+            "amount": "={{ $('Парсер ответа A1').item.json.amount }}",
+            "current_balance": "={{ $('Парсер ответа A1').item.json.current_balance }}",
+            "ticket_id": "={{ $('Сгенерировать ticket_id').item.json.ticket_id }}",
+            "status": "={{ $('Парсер ответа A1').item.json.new_status }}",
+            "text": "={{ $('Парсер ответа A1').item.json.text_summary }}",
+            "username": "={{ $('Парсер ответа A1').item.json.username }}",
+            "user_chat_id": "={{ $('Парсер ответа A1').item.json.user_chat_id }}",
+            "telegram_user_id": "={{ $('Парсер ответа A1').item.json.telegram_user_id }}",
+            "manager_reply_text": "={{ \"\" }}",
+            "account_nickname": "={{ $('Парсер ответа A1').item.json.account_nickname }}",
+            "operation_type": "={{ $('Парсер ответа A1').item.json.operation_type }}",
+            "dialog_state": "={{ $('Парсер ответа A1').item.json.dialog_state_to_save }}",
+            "currency_raw": "={{ $('Парсер ответа A1').item.json.currency_raw || \"\" }}",
+            "current_balance_raw": "={{ $('Парсер ответа A1').item.json.current_balance_raw || String($('Парсер ответа A1').item.json.current_balance ?? \"\") }}",
+            "amount_raw": "={{ $('Парсер ответа A1').item.json.amount_raw || String($('Парсер ответа A1').item.json.amount ?? \"\") }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ticket_id",
+              "displayName": "ticket_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "operation_type",
+              "displayName": "operation_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "current_balance",
+              "displayName": "current_balance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_user_id",
+              "displayName": "telegram_user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "manager_reply_text",
+              "displayName": "manager_reply_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "account_nickname",
+              "displayName": "account_nickname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_chat_id",
+              "displayName": "user_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "dialog_state",
+              "displayName": "dialog_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "currency_raw",
+              "displayName": "currency_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "current_balance_raw",
+              "displayName": "current_balance_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "amount_raw",
+              "displayName": "amount_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        512,
+        448
+      ],
+      "id": "906e52e5-87ef-4316-8671-b89043575abd",
+      "name": "записать новую заявку"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5a7c13c8-995e-45df-9996-763fb9d50367",
+              "name": "action",
+              "value": "={{ JSON.parse($json.output || $json.text).action }}",
+              "type": "string"
+            },
+            {
+              "id": "04847cf9-99e7-4e23-98eb-d90931928fb6",
+              "name": "reply_to_user",
+              "value": "={{ JSON.parse($json.output || $json.text).reply_to_user }}",
+              "type": "string"
+            },
+            {
+              "id": "be299eb4-9977-48bf-97f5-c39230691276",
+              "name": "new_status",
+              "value": "={{ JSON.parse($json.output || $json.text).new_status }}",
+              "type": "string"
+            },
+            {
+              "id": "ebac1808-121d-4c04-b503-e4e492b2a0b1",
+              "name": "account_nickname",
+              "value": "={{ JSON.parse($json.output || $json.text).account_nickname || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "1531f265-537a-455e-bc5a-9e3d42c31430",
+              "name": "operation_type",
+              "value": "={{ JSON.parse($json.output || $json.text).operation_type || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "5de2af02-1183-4fdc-b62d-5fad40085bad",
+              "name": "current_balance",
+              "value": "={{ JSON.parse($json.output || $json.text).current_balance ?? null }}",
+              "type": "number"
+            },
+            {
+              "id": "f2ff199f-4646-4a77-9ede-c0e157de4227",
+              "name": "amount",
+              "value": "={{ JSON.parse($json.output || $json.text).amount ?? null }}",
+              "type": "number"
+            },
+            {
+              "id": "4accc100-70fc-4b02-964c-fc49597fe871",
+              "name": "text_summary",
+              "value": "={{ JSON.parse($json.output || $json.text).text_summary || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "8318076f-b015-4665-a70e-c41dbb9c4165",
+              "name": "missing_fields_json",
+              "value": "={{ JSON.stringify(JSON.parse($json.output || $json.text).missing_fields || []) }}",
+              "type": "string"
+            },
+            {
+              "id": "a4660a0b-ad34-4fcf-9803-ec8d0c398525",
+              "name": "ticket_id",
+              "value": "={{ $('Стабилизатор активной заявки').item.json.active_ticket_id }}",
+              "type": "string"
+            },
+            {
+              "id": "564ba5f3-b631-4c61-98ee-aaf465f07240",
+              "name": "username",
+              "value": "={{ $('Собрать контекст для A1').item.json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "c342db46-980f-4672-85f9-df76207f17ca",
+              "name": "user_chat_id",
+              "value": "={{ $('Собрать контекст для A1').item.json.user_chat_id }}",
+              "type": "string"
+            },
+            {
+              "id": "631a6827-17b8-4a10-8ef7-31b5feffd833",
+              "name": "telegram_user_id",
+              "value": "={{ $('Собрать контекст для A1').item.json.telegram_user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "69a5a20b-86ea-4505-b7dc-04f9f5af2f03",
+              "name": "dialog_state_to_save",
+              "value": "={{ JSON.parse($json.output || $json.text).dialog_state_to_save || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "6d782470-d58b-41ed-8ac4-e4bff9c98513",
+              "name": "currency_raw",
+              "value": "={{ JSON.parse($json.output || $json.text).currency_raw || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "5c7c68ce-6bec-42c5-bb4c-92286e5b8119",
+              "name": "current_balance_raw",
+              "value": "={{ JSON.parse($json.output || $json.text).current_balance_raw || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "9de80a73-7df1-465a-9a2e-843652a80adb",
+              "name": "amount_raw",
+              "value": "={{ JSON.parse($json.output || $json.text).amount_raw || \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -624,
+        224
+      ],
+      "id": "add33ed9-7443-451e-8301-195b841442e4",
+      "name": "Парсер ответа A1",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f648c597-a02c-4192-b79b-d41424b00932",
+                    "leftValue": "={{ $json.action }}",
+                    "rightValue": "reply_only",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Ответ игроку"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "77af4f2e-6169-4145-a59b-7555db7d7fb7",
+                    "leftValue": "={{ $json.action }}",
+                    "rightValue": "update_ticket",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Обновить заявку"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.action }}",
+                    "rightValue": "create_ticket",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "281cb1d1-7ac2-434d-b91b-8b9d0e821179"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Создать заявку"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b0217b66-39a2-4071-b97c-65b2aa2fabb2",
+                    "leftValue": "={{ $json.action }}",
+                    "rightValue": "ask_confirm_new_ticket",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Подтвердить новый тикет"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -272,
+        192
+      ],
+      "id": "9e8b363a-8e3d-4bc7-999b-210622940992",
+      "name": "Маршрутизация действий",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first()?.json ?? {};\n\nconst alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';\n// Без I, O, 0, 1 — чтобы не путать символы.\n\nlet suffix = '';\n\nfor (let i = 0; i < 6; i++) {\n  suffix += alphabet[Math.floor(Math.random() * alphabet.length)];\n}\n\nconst ticket = `R${suffix}`;\n\nreturn [\n  {\n    json: {\n      ...input,\n      ticket_id: ticket,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        448
+      ],
+      "id": "8a3b1c1b-74ea-4259-b072-136ba91c27ad",
+      "name": "Сгенерировать ticket_id",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('нормализатор').item.json.operator_id }}",
+        "text": "={{ (() => {\n  const action = $('Парсер ответа A1').item.json.action;\n\n  const ticketId = action === 'create_ticket'\n    ? ($json.ticket_id || $('Сгенерировать ticket_id').item.json.ticket_id)\n    : ($('Парсер ответа A1').item.json.ticket_id || $('Стабилизатор активной заявки').item.json.active_ticket_id || $json.ticket_id || '');\n\n  const username = $('Парсер ответа A1').item.json.username || 'без username';\n  const accountNickname = $('Парсер ответа A1').item.json.account_nickname || '';\n\n  const operationType = $('Парсер ответа A1').item.json.operation_type === 'withdraw'\n    ? 'Вывод'\n    : 'Ввод';\n\n  const currentBalance = $('Парсер ответа A1').item.json.current_balance;\n  const amount = $('Парсер ответа A1').item.json.amount;\n\n  const currentBalanceRaw =\n    $('Парсер ответа A1').item.json.current_balance_raw\n    || String(currentBalance ?? '');\n\n  const amountRaw =\n    $('Парсер ответа A1').item.json.amount_raw\n    || String(amount ?? '');\n\n  const currencyRaw =\n    $('Парсер ответа A1').item.json.currency_raw\n    || 'не указана';\n\n  return `Заявка #${ticketId}\n\nПользователь: ${username}\nНикнейм: ${accountNickname}\nТип: ${operationType}\nБаланс: ${currentBalanceRaw}\nСумма: ${amountRaw}\nВалюта: ${currencyRaw}\n\nОтветьте одним сообщением в одном из форматов:\n#${ticketId} выполнено\n#${ticketId} отказано\n#${ticketId} уточнить баланс\n#${ticketId} нестандарт(закрыть): кратко опишите ситуацию`;\n})() }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1264,
+        304
+      ],
+      "id": "ad1ccb0f-5863-4962-bf25-28edb53628d0",
+      "name": "Отправить заявку оператору",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticket_id",
+              "keyValue": "={{$json.ticket_id}}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": true,
+            "status": "={{ $json.new_status }}",
+            "text": "={{ $json.text_summary }}",
+            "account_nickname": "={{ $json.account_nickname }}",
+            "operation_type": "={{ $json.operation_type }}",
+            "current_balance": "={{ $json.current_balance }}",
+            "amount": "={{ $json.amount }}",
+            "dialog_state": "={{ $json.dialog_state_to_save }}",
+            "currency_raw": "={{ $('Парсер ответа A1').item.json.currency_raw || \"\" }}",
+            "current_balance_raw": "={{ $('Парсер ответа A1').item.json.current_balance_raw || String($('Парсер ответа A1').item.json.current_balance ?? \"\") }}",
+            "amount_raw": "={{ $('Парсер ответа A1').item.json.amount_raw || String($('Парсер ответа A1').item.json.amount ?? \"\") }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ticket_id",
+              "displayName": "ticket_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "operation_type",
+              "displayName": "operation_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "current_balance",
+              "displayName": "current_balance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "telegram_user_id",
+              "displayName": "telegram_user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "manager_reply_text",
+              "displayName": "manager_reply_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "account_nickname",
+              "displayName": "account_nickname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_chat_id",
+              "displayName": "user_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "dialog_state",
+              "displayName": "dialog_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "currency_raw",
+              "displayName": "currency_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "current_balance_raw",
+              "displayName": "current_balance_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "amount_raw",
+              "displayName": "amount_raw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        224,
+        208
+      ],
+      "id": "866b034d-3b8a-4496-8822-8d9698fb02a3",
+      "name": "Обновить активную заявку"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "143bb6bc-228d-46d3-917e-517b0e5ccff1",
+              "leftValue": "={{ $json.ticket_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f731de31-5acb-4296-b728-caf4e0b0cccf",
+      "name": "Есть активная заявка для reply_only?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "862c2a1c-f6b0-48ea-abc3-0c2921baaf68",
+              "leftValue": "={{ $json.new_status || $('Парсер ответа A1').item.json.new_status }}",
+              "rightValue": "Готово к отправке менеджеру",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        512,
+        208
+      ],
+      "id": "6104eabe-46bb-4591-8857-782c42c822ab",
+      "name": "Нужно отправить менеджеру?"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.user_chat_id }}",
+                    "rightValue": "8054770793",
+                    "operator": {
+                      "type": "string",
+                      "operation": "notContains"
+                    },
+                    "id": "70b6f004-feab-4519-b709-6e2edafa9977"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Игрок"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "bb8f0a1c-b56e-42c4-b258-ec490438347d",
+                    "leftValue": "={{ $json.user_chat_id }}",
+                    "rightValue": "8054770793",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Оператор"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -2336,
+        512
+      ],
+      "id": "7879ac8a-37e2-47ae-b4f8-d447860fbb87",
+      "name": "игрок / оператор",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticket_id",
+              "keyValue": "={{ (() => {\n  const action = $('Парсер ответа A1').item.json.action;\n\n  if (action === 'create_ticket') {\n    return $('Сгенерировать ticket_id').item.json.ticket_id;\n  }\n\n  return $('Парсер ответа A1').item.json.ticket_id\n    || $('Стабилизатор активной заявки').item.json.active_ticket_id\n    || '';\n})() }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": true,
+            "status": "Отправлено оператору",
+            "manager_reply_text": "={{ \"\" }}",
+            "dialog_state": "=\"\""
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ticket_id",
+              "displayName": "ticket_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "operation_type",
+              "displayName": "operation_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "current_balance",
+              "displayName": "current_balance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "telegram_user_id",
+              "displayName": "telegram_user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "manager_reply_text",
+              "displayName": "manager_reply_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "account_nickname",
+              "displayName": "account_nickname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_chat_id",
+              "displayName": "user_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "dialog_state",
+              "displayName": "dialog_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        304
+      ],
+      "id": "4f5ebecc-1000-4162-be75-e1d69697f604",
+      "name": "Обновить статус"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.user_chat_id || $('Собрать контекст для A1').item.json.user_chat_id }}",
+        "text": "={{ $json.reply_to_user || $('Парсер ответа A1').item.json.reply_to_user }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        496,
+        16
+      ],
+      "id": "e9a22a66-735d-4077-a044-47503ac6b120",
+      "name": "Ответ игроку 1",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0c9997b-422e-4eba-96a6-5d8eb9a49f6c",
+              "name": "operator_message",
+              "value": "={{ $json.user_message }}",
+              "type": "string"
+            },
+            {
+              "id": "0075a6d8-6fdb-4cfb-acd7-ec05823596ad",
+              "name": "operator_username",
+              "value": "={{ $json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "9094e1fc-72cd-4bae-b2f4-00b9bdb088a6",
+              "name": "operator_chat_id",
+              "value": "={{ $json.user_chat_id }}",
+              "type": "string"
+            },
+            {
+              "id": "28ae85c5-531b-4f56-b900-be7968eb263e",
+              "name": "operator_telegram_user_id",
+              "value": "={{ $json.telegram_user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "845c141a-6e3c-491d-b21a-d88759d9eb33",
+              "name": "sessionid",
+              "value": "={{ 'ru_poker_' + $('нормализатор').item.json.telegram_user_id }}",
+              "type": "string"
+            },
+            {
+              "id": "b15de64e-e0e3-4782-b5de-062f915f2cc9",
+              "name": "reply_to_message_text",
+              "value": "={{ $('нормализатор').item.json.reply_to_message_text }}",
+              "type": "string"
+            },
+            {
+              "id": "541d8164-8585-4b51-967f-1f889bbd4122",
+              "name": "reply_to_message_id",
+              "value": "={{ $('нормализатор').item.json.reply_to_message_id }}",
+              "type": "string"
+            },
+            {
+              "id": "9461fdbc-0785-4724-8cc8-a3fa3359ac8c",
+              "name": "has_reply",
+              "value": "={{ $('нормализатор').item.json.has_reply }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2032,
+        816
+      ],
+      "id": "c6b86c46-29ba-4efb-a132-9968fc30daa6",
+      "name": "Собрать контекст для A2"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{$json.sessionId}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -1408,
+        1072
+      ],
+      "id": "62cc28a6-6bc6-453a-aabd-7214eebc61f8",
+      "name": "Simple memory1",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "======= A2_INPUT_CONTEXT ===\noperator_message: {{ $json.operator_message }}\noperator_username: {{ $json.operator_username }}\noperator_chat_id: {{ $json.operator_chat_id }}\noperator_telegram_user_id: {{ $json.operator_telegram_user_id }}\ndetected_ticket_id: {{ $json.detected_ticket_id }}\nreply_to_message_text: {{ $json.reply_to_message_text }}\nhas_reply: {{ $json.has_reply }}\n=== END ===",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "# Role:\nТы — AI-агент, который читает ответы оператора по заявкам на ввод/вывод USDT.\n\n# ЦЕЛЬ:\nПонять:\n1) к какой заявке относится ответ оператора\n2) какой итоговый статус нужно поставить\n3) нужно ли просить оператора написать корректный формат\n\n# ОЖИДАЕМЫЙ ФОРМАТ СООБЩЕНИЙ ОТ ОПЕРАТОРА:\n- #RH4JWBZ выполнено\n- #RH4JWBZ done\n- #RH4JWBZ отказано\n- #RH4JWBZ reject\n- #RH4JWBZ нестандарт\n- #RH4JWBZ уточнить баланс\n- #RH4JWBZ уточнить сумму\n- #RH4JWBZ уточнить никнейм\n- #RH4JWBZ нужны уточнения: <текст>\n\n# ПРАВИЛА:\n- ticket_id может быть в виде:\n  - R123456\n  - #R123456\n- Нормализуй ticket_id к формату без решетки:\n  - R123456\n\n- Если detected_ticket_id не пустой, используй detected_ticket_id как основной ticket_id.\n- Если detected_ticket_id пустой, попробуй определить ticket_id из operator_message.\n- Если detected_ticket_id пустой, ticket_id не найден в operator_message, has_reply = false и оператор не указал номер заявки явно, то:\n  - action = \"reply_only_to_manager\"\n  - new_status = \"\"\n  - ticket_id = \"\"\n  - manager_reply_text = \"\"\n  - reply_to_user = \"\"\n  - reply_to_manager = \"Ответьте reply на сообщение заявки или укажите номер в формате: #R123456 выполнено / #R123456 отказано / #R123456 уточнить баланс / #R123456 нестандарт\"\n- Если has_reply = true, сначала учитывай detected_ticket_id, извлечённый из reply_to_message_text, как более приоритетный источник, чем свободный текст operator_message.\n\n# КЛАССИФИКАЦИЯ:\n1) Если оператор явно сообщает, что заявка выполнена:\n   action = \"close_done\"\n   new_status = \"выполнена(закрыта)\"\n\n2) Если оператор явно сообщает отказ:\n   action = \"close_rejected\"\n   new_status = \"отказано(закрыта)\"\n\n3) Если оператор сообщает, что по заявке нужны уточнения от игрока, исправление данных, повторное подтверждение или дополнительная информация:\n   action = \"need_user_clarification\"\n   new_status = \"нужны уточнения от игрока\"\n\n4) Если оператор пишет про нестандартную ситуацию, проблему, ручную проверку, спорный случай или иной нетиповой финальный исход:\n   action = \"close_non_standard\"\n   new_status = \"нестандартная(закрыта)\"\n\n5) Если ticket_id не найден или статус непонятен:\n   action = \"reply_only_to_manager\"\n   new_status = \"\"\n   reply_to_manager = \"Напишите ответ в формате: #R123456 выполнено / #R123456 отказано / #R123456 уточнить баланс / #R123456 нестандарт(закрыта)\"\n\n# manager_reply_text:\n- Всегда сохраняй исходный смысл ответа оператора.\n- Если оператор написал свободный текст, верни его коротко, но без искажения смысла.\n- Для action = \"need_user_clarification\" в manager_reply_text передай, что именно оператор просит уточнить.\n  Примеры:\n  - \"Уточнить баланс\"\n  - \"Проверить никнейм аккаунта\"\n  - \"Подтвердить сумму\"\n  - \"(что угодно, что просит уточнить оператор у игрока)\" \n- Для action = \"close_done\" manager_reply_text можно вернуть как:\n  \"Заявка выполнена\"\n- Для action = \"close_rejected\" manager_reply_text можно вернуть как:\n  \"По заявке отказано\"\n- Для action = \"close_non_standard\" manager_reply_text должен коротко передавать суть нестандартной ситуации.\n\n# reply_to_user:\n- Всегда формируй человеко-понятный текст для игрока, если action один из:\n  - \"close_done\"\n  - \"close_rejected\"\n  - \"close_non_standard\"\n  - \"need_user_clarification\"\n\nПравила:\n1) Если action = \"close_done\":\n   reply_to_user = \"Ваша заявка #<ticket_id> выполнена.\"\n\n2) Если action = \"close_rejected\":\n   reply_to_user = \"По заявке #<ticket_id> получен отказ. Если нужно, отправьте новые корректные данные.\"\n\n3) Если action = \"need_user_clarification\":\n   reply_to_user = \"По заявке #<ticket_id> нужно уточнение: <передай суть уточнения оператора>.\"\n\n4) Если action = \"close_non_standard\":\n   reply_to_user = \"По заявке #<ticket_id> получен ответ оператора: <кратко передай суть ответа>.\"\n\n5) Если action = \"reply_only_to_manager\":\n   reply_to_user = \"\"\n\nВажно:\n- Используй ticket_id в формате с решеткой, например: #R123456\n- Текст для игрока должен быть короткий, понятный и без канцелярита.\n- Не используй внутренние action-слова вроде close_done или close_rejected в тексте для игрока.\n\n# ТРЕБОВАНИЯ:\n- Всегда возвращай все ключи.\n- Если ticket_id не найден — верни \"\".\n- Если action = \"reply_only_to_manager\", то reply_to_user = \"\".\n- Если action не равен \"reply_only_to_manager\", то постарайся заполнить reply_to_user осмысленным текстом для игрока.\n- Никакого markdown.\n- Никакого лишнего текста вне JSON.\n\n# ФОРМАТ ВЫХОДА:\nВерни строго JSON-объект:\n\n{\n  \"action\": \"close_done | close_rejected | need_user_clarification | close_non_standard | reply_only_to_manager\",\n  \"ticket_id\": \"строка или пустая строка\",\n  \"new_status\": \"строка или пустая строка\",\n  \"manager_reply_text\": \"строка\",\n  \"reply_to_user\": \"строка или пустая строка\",\n  \"reply_to_manager\": \"строка или пустая строка\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -1488,
+        816
+      ],
+      "id": "b6f11a86-9036-47c7-8e8b-bd6da0afa1d6",
+      "name": "AI агент оператора А2",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1e1e481c-efcf-4c11-9ed1-e0e474cf7af9",
+              "name": "action",
+              "value": "={{ JSON.parse($json.output || $json.text).action }}",
+              "type": "string"
+            },
+            {
+              "id": "e34d483f-3704-42b4-812c-0c2d4a88979f",
+              "name": "ticket_id",
+              "value": "={{ JSON.parse($json.output || $json.text).ticket_id || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "ba38abd5-bd9e-4fd7-8ddf-d97a32df8ce6",
+              "name": "new_status",
+              "value": "={{ JSON.parse($json.output || $json.text).new_status || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "d0597eac-53b2-4f49-a4f1-2947939ddfc8",
+              "name": "manager_reply_text",
+              "value": "={{ JSON.parse($json.output || $json.text).manager_reply_text || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "8f69945f-8b49-4d17-bad5-5f4d2ae49783",
+              "name": "reply_to_manager",
+              "value": "={{ JSON.parse($json.output || $json.text).reply_to_manager || \"\" }}",
+              "type": "string"
+            },
+            {
+              "id": "295ac8cb-3718-4047-bd49-fbe2768177b9",
+              "name": "operator_chat_id",
+              "value": "={{ $('Собрать контекст для A2').item.json.operator_chat_id }}",
+              "type": "string"
+            },
+            {
+              "id": "f6156ded-5106-4e6c-ad53-9cd48fcebc2c",
+              "name": "reply_to_user",
+              "value": "={{ JSON.parse($json.output || $json.text).reply_to_user || \"\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1136,
+        816
+      ],
+      "id": "88f5d05b-380e-4da7-94ac-fd7aae534761",
+      "name": "Парсер ответа A2"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticket_id",
+              "keyValue": "={{ $json.ticket_id }}"
+            }
+          ]
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        816
+      ],
+      "id": "4defeae3-d83b-4eb3-b28c-3084ec6a2d71",
+      "name": "Найти заявку по ticket_id",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "close_done",
+                    "rightValue": "={{ $('Парсер ответа A2').item.json.action }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "eae56caf-8447-4284-9e7f-a8690f048c33"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Закрыта(выполнена)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "78192897-3f98-49d0-ba73-9368710da2bc",
+                    "leftValue": "close_rejected",
+                    "rightValue": "={{ $('Парсер ответа A2').item.json.action }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "закрыта(отклонена)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "307760cf-efc9-4db0-871c-1ffcd815ec10",
+                    "leftValue": "close_non_standard",
+                    "rightValue": "={{ $('Парсер ответа A2').item.json.action }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "закрыта(нестандарт)"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "1dc98c04-f0b4-4209-8c54-0618609c03a5",
+                    "leftValue": "reply_only_to_manager",
+                    "rightValue": "={{ $('Парсер ответа A2').item.json.action }}",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "ответ оператору"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d802d8ed-79e7-4f4f-b833-d6ec72cd4b9d",
+                    "leftValue": "={{ $('Парсер ответа A2').item.json.action }}",
+                    "rightValue": "need_user_clarification",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "нужны уточнения"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        -432,
+        752
+      ],
+      "id": "015df846-8edd-45c1-b585-2a91319f1819",
+      "name": "Маршрутизация действий A2"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticket_id",
+              "keyValue": "={{ $('Парсер ответа A2').item.json.ticket_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": false,
+            "status": "={{ $('Парсер ответа A2').item.json.new_status }}",
+            "manager_reply_text": "={{ $('Парсер ответа A2').item.json.manager_reply_text }}",
+            "dialog_state": "={{ \"\" }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ticket_id",
+              "displayName": "ticket_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "operation_type",
+              "displayName": "operation_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "current_balance",
+              "displayName": "current_balance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "telegram_user_id",
+              "displayName": "telegram_user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "manager_reply_text",
+              "displayName": "manager_reply_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "account_nickname",
+              "displayName": "account_nickname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_chat_id",
+              "displayName": "user_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "dialog_state",
+              "displayName": "dialog_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        80,
+        656
+      ],
+      "id": "1058a1e1-308c-48fa-8523-a3f66e960a20",
+      "name": "Закрыть заявку по ответу оператора"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.user_chat_id || $('Собрать контекст для A1').item.json.user_chat_id }}",
+        "text": "={{ $json.reply_to_user || $('Парсер ответа A1').item.json.reply_to_user }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        496
+      ],
+      "id": "8cfcee4e-2e46-41fb-afb9-dc6ca4e06f27",
+      "name": "Ответ игроку 2",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cf9fff69-d93b-49e7-bac8-71684b38147f",
+              "leftValue": "={{ $json.ticket_id || '' }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -720,
+        816
+      ],
+      "id": "18f9eaaf-ee3d-4242-9dff-7a74d48c6595",
+      "name": "заявка есть?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Парсер ответа A2').item.json.operator_chat_id }}",
+        "text": "={{ $('Парсер ответа A2').item.json.reply_to_manager }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -720,
+        1072
+      ],
+      "id": "fc70580e-f430-44fc-9bb8-61a26a1452fd",
+      "name": "Ответ оператору 2",
+      "webhookId": "e9373e42-67a1-4645-8274-68a6dc66be41"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Парсер ответа A2').item.json.operator_chat_id }}",
+        "text": "={{ $('Парсер ответа A2').item.json.reply_to_manager }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        832
+      ],
+      "id": "c10c4c2e-03af-4313-a3b1-c3a2db7da583",
+      "name": "Ответ оператору 1",
+      "webhookId": "e9373e42-67a1-4645-8274-68a6dc66be41"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticket_id",
+              "keyValue": "={{ $('Парсер ответа A2').item.json.ticket_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_active": true,
+            "status": "={{ $('Парсер ответа A2').item.json.new_status }}",
+            "manager_reply_text": "={{ $('Парсер ответа A2').item.json.manager_reply_text }}",
+            "dialog_state": "={{ \"\" }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ticket_id",
+              "displayName": "ticket_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "operation_type",
+              "displayName": "operation_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "current_balance",
+              "displayName": "current_balance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "telegram_user_id",
+              "displayName": "telegram_user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "manager_reply_text",
+              "displayName": "manager_reply_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "account_nickname",
+              "displayName": "account_nickname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_chat_id",
+              "displayName": "user_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "dialog_state",
+              "displayName": "dialog_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        80,
+        1040
+      ],
+      "id": "bd4869c4-2378-40dd-8cb7-e1fb7d38d1dc",
+      "name": "Обновить заявку: нужны уточнения"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Найти заявку по ticket_id').item.json.user_chat_id }}",
+        "text": "={{ $('Парсер ответа A2').item.json.reply_to_user }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        1040
+      ],
+      "id": "9cb37422-229d-4229-a0fa-777d3928cf67",
+      "name": "Ответ игроку 5",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Парсер ответа A2').item.json.operator_chat_id }}",
+        "text": "={{ `Ответ по заявке отправлен игроку. #${$('Парсер ответа A2').item.json.ticket_id}. Статус: ${$('Парсер ответа A2').item.json.new_status}.` }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        832
+      ],
+      "id": "d928b0bc-4e22-4d47-958e-142f2f14e5b9",
+      "name": "Уведомить оператора: игроку отправлено",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "7Mdm6ITl62nChFCp",
+          "mode": "list",
+          "cachedResultName": "Ru_poker_tickets",
+          "cachedResultUrl": "/projects/UWmL5rIoHvDIxG1I/datatables/7Mdm6ITl62nChFCp"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "ticket_id",
+              "keyValue": "={{ $json.ticket_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "dialog_state": "={{ $json.dialog_state_to_save }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "ticket_id",
+              "displayName": "ticket_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "operation_type",
+              "displayName": "operation_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "current_balance",
+              "displayName": "current_balance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "amount",
+              "displayName": "amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "telegram_user_id",
+              "displayName": "telegram_user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "manager_reply_text",
+              "displayName": "manager_reply_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "account_nickname",
+              "displayName": "account_nickname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_chat_id",
+              "displayName": "user_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "dialog_state",
+              "displayName": "dialog_state",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        496
+      ],
+      "id": "161b6fbb-1163-478b-a2df-78d658a84787",
+      "name": "Сохранить состояние"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first();\nconst json = item.json;\n\nconst operatorMessage = json.operator_message || '';\nconst replyText = json.reply_to_message_text || '';\n\n// Сначала пытаемся найти ticket_id в сообщении, на которое оператор ответил.\n// Если не нашли — ищем в тексте самого оператора.\nconst combinedSources = [\n  replyText,\n  operatorMessage,\n];\n\nlet detectedTicketId = '';\n\nfor (const source of combinedSources) {\n  const match = source.match(/#?(R\\d{6,})/i);\n  if (match) {\n    detectedTicketId = match[1].toUpperCase();\n    break;\n  }\n}\n\nreturn [\n  {\n    json: {\n      ...json,\n      detected_ticket_id: detectedTicketId,\n      ticket_id_source: replyText ? 'reply_or_text' : 'text_only',\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1760,
+        816
+      ],
+      "id": "75ccdf47-814e-4d9f-9104-9da672ad12f7",
+      "name": "Извлечь ticket_id из reply или текста"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3056,
+        512
+      ],
+      "id": "79561096-d2e3-4915-a5ed-ba8edef36091",
+      "name": "Telegram Trigger",
+      "webhookId": "de5be616-f772-4c7f-a45e-55b8e9d8b27a"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.user_chat_id || $('Собрать контекст для A1').item.json.user_chat_id }}",
+        "text": "={{ $json.reply_to_user || $('Парсер ответа A1').item.json.reply_to_user }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        704,
+        304
+      ],
+      "id": "97a06800-a64b-40b5-bdc1-c18ce7fa1413",
+      "name": "Ответ игроку 3",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Найти заявку по ticket_id').item.json.user_chat_id }}",
+        "text": "={{ $('Парсер ответа A2').item.json.reply_to_user }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        656
+      ],
+      "id": "eefa3b5f-e45c-4761-ae3b-58e35d99233d",
+      "name": "Ответ игроку 6",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Парсер ответа A1').item.json.user_chat_id }}",
+        "text": "={{ (() => {\n  const action = $('Парсер ответа A1').item.json.action;\n\n  const ticketId = action === 'create_ticket'\n    ? $('Сгенерировать ticket_id').item.json.ticket_id\n    : ($('Парсер ответа A1').item.json.ticket_id || $('Стабилизатор активной заявки').item.json.active_ticket_id || '');\n\n  const reply = $('Парсер ответа A1').item.json.reply_to_user || 'Заявка принята и передана в обработку. Ответ придёт в этот чат.';\n\n  return `${reply} Номер заявки: #${ticketId}`;\n})() }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1712,
+        304
+      ],
+      "id": "373eb4d2-08b0-45e4-985e-e80e97c922ab",
+      "name": "Ответ игроку 4",
+      "webhookId": "f49ab6d5-54c4-4ead-ab42-ad2dd7611cae"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4.1",
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -1024,
+        480
+      ],
+      "id": "de05ca02-632a-46fe-9871-ac6c08aca93c",
+      "name": "GPT 4.1",
+      "notes": "Клод хайку 4.5"
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o",
+        "options": {
+          "responseFormat": "json_object"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -1552,
+        1072
+      ],
+      "id": "fa01a101-ea68-4a45-8d81-b3dc0de77fd4",
+      "name": "GPT 4o"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        672,
+        448
+      ],
+      "id": "bd65dc51-1ede-41ad-911a-60eb6d561441",
+      "name": "When clicking ‘Execute workflow’"
+    }
+  ],
+  "connections": {
+    "нормализатор": {
+      "main": [
+        [
+          {
+            "node": "игрок / оператор",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Игнор ботов": {
+      "main": [
+        [],
+        [
+          {
+            "node": "нормализатор",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Стабилизатор активной заявки": {
+      "main": [
+        [
+          {
+            "node": "Собрать контекст для A1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Получить все активные заявки": {
+      "main": [
+        [
+          {
+            "node": "Выбрать последнюю активную заявку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Выбрать последнюю активную заявку": {
+      "main": [
+        [
+          {
+            "node": "Стабилизатор активной заявки",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Собрать контекст для A1": {
+      "main": [
+        [
+          {
+            "node": "AI агент обращения А1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI агент обращения А1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI агент обращения А1": {
+      "main": [
+        [
+          {
+            "node": "Парсер ответа A1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "записать новую заявку": {
+      "main": [
+        [
+          {
+            "node": "Отправить заявку оператору",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Парсер ответа A1": {
+      "main": [
+        [
+          {
+            "node": "Маршрутизация действий",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Маршрутизация действий": {
+      "main": [
+        [
+          {
+            "node": "Есть активная заявка для reply_only?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Обновить активную заявку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Сгенерировать ticket_id",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Сохранить состояние",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сгенерировать ticket_id": {
+      "main": [
+        [
+          {
+            "node": "записать новую заявку",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Отправить заявку оператору": {
+      "main": [
+        [
+          {
+            "node": "Обновить статус",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Обновить активную заявку": {
+      "main": [
+        [
+          {
+            "node": "Нужно отправить менеджеру?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Есть активная заявка для reply_only?": {
+      "main": [
+        [
+          {
+            "node": "Обновить активную заявку",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ответ игроку 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Нужно отправить менеджеру?": {
+      "main": [
+        [
+          {
+            "node": "Отправить заявку оператору",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ответ игроку 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "игрок / оператор": {
+      "main": [
+        [
+          {
+            "node": "Получить все активные заявки",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Собрать контекст для A2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Обновить статус": {
+      "main": [
+        [
+          {
+            "node": "Ответ игроку 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Собрать контекст для A2": {
+      "main": [
+        [
+          {
+            "node": "Извлечь ticket_id из reply или текста",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI агент оператора А2",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI агент оператора А2": {
+      "main": [
+        [
+          {
+            "node": "Парсер ответа A2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Парсер ответа A2": {
+      "main": [
+        [
+          {
+            "node": "Найти заявку по ticket_id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Найти заявку по ticket_id": {
+      "main": [
+        [
+          {
+            "node": "заявка есть?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Маршрутизация действий A2": {
+      "main": [
+        [
+          {
+            "node": "Закрыть заявку по ответу оператора",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Закрыть заявку по ответу оператора",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Закрыть заявку по ответу оператора",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ответ оператору 1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Обновить заявку: нужны уточнения",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Закрыть заявку по ответу оператора": {
+      "main": [
+        [
+          {
+            "node": "Ответ игроку 6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "заявка есть?": {
+      "main": [
+        [
+          {
+            "node": "Маршрутизация действий A2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ответ оператору 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Обновить заявку: нужны уточнения": {
+      "main": [
+        [
+          {
+            "node": "Ответ игроку 5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ответ игроку 5": {
+      "main": [
+        [
+          {
+            "node": "Уведомить оператора: игроку отправлено",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сохранить состояние": {
+      "main": [
+        [
+          {
+            "node": "Ответ игроку 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Извлечь ticket_id из reply или текста": {
+      "main": [
+        [
+          {
+            "node": "AI агент оператора А2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Игнор ботов",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ответ игроку 6": {
+      "main": [
+        [
+          {
+            "node": "Уведомить оператора: игроку отправлено",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT 4.1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI агент обращения А1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GPT 4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI агент оператора А2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "0d8da6a678e16116387a942799d959a0c7a5cd4062a383b84dd93b7c50d8eb34"
+  }
+}
